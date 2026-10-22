@@ -12,8 +12,8 @@ RUN mvn clean package -Dmaven.compiler.source=17 -Dmaven.compiler.target=17 -Dma
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
-# Copiamos el JAR con el nombre real generado por Maven
+# Copiamos el JAR compilado desde la etapa anterior
 COPY --from=build /app/target/CRUD_SQL-1.0-SNAPSHOT.jar /app/app.jar
 
-# Comando para ejecutar el programa por consola
-CMD ["java", "-jar", "app.jar"]
+# Indicamos explícitamente la clase principal que contiene el main (paquete + nombre de la clase)
+CMD ["java", "-cp", "app.jar", "com.mycompany.insertsql.CRUD_SQL"]
