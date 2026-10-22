@@ -11,19 +11,49 @@
         <exec.mainClass>com.mycompany.insertsql.CRUD_SQL</exec.mainClass>
     </properties>
     <dependencies>
-        <!-- Driver original de SQL Server -->
+        <!-- Driver de SQL Server para local -->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
             <version>12.6.1.jre11</version>
         </dependency>
         
-        <!-- Driver nuevo de PostgreSQL para Render -->
+        <!-- Driver de PostgreSQL para Render -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.6.0</version>
         </dependency>
     </dependencies>
+    
+    <build>
+        <plugins>
+            <!-- Plugin para empaquetar el JAR con todas las dependencias incluidas -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.mycompany.insertsql.CRUD_SQL</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
     <name>CRUD_SQL</name>
 </project>
